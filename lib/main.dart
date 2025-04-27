@@ -51,7 +51,10 @@ class MyApp extends StatelessWidget {
               '/signup': (context) => const SignUpScreen(),
               '/home': (context) => const HomeScreen(),
               '/crop-form': (context) => const CropFormScreen(),
-              '/result': (context) => const ResultScreen(),
+              '/result': (context) => ResultScreen(
+                    formData: ModalRoute.of(context)!.settings.arguments
+                        as Map<String, dynamic>,
+                  ),
             },
           );
         },

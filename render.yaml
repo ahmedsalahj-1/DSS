@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: crop-recommendation-api
+    env: python
+    buildCommand: pip install -r api/requirements.txt
+    startCommand: cd api && gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+    disk:
+      name: model-storage
+      mountPath: /opt/render/model-storage
+      sizeGB: 1 

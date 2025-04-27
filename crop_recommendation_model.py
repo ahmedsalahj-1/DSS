@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestClassifier
+import xgboost as xgb
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -32,8 +32,15 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# Create and train the Random Forest model
-model = RandomForestClassifier(n_estimators=100, random_state=42)
+# Create and train the XGBoost model
+model = xgb.XGBClassifier(
+    n_estimators=100,
+    learning_rate=0.1,
+    max_depth=5,
+    random_state=42,
+    use_label_encoder=False,
+    eval_metric='mlogloss'
+)
 model.fit(X_train_scaled, y_train)
 
 # Make predictions
@@ -74,9 +81,13 @@ plt.tight_layout()
 plt.savefig('feature_importance.png')
 plt.close()
 
-# Save the model
+# Save the model and scaler
 import joblib
 joblib.dump(model, 'crop_recommendation_model.joblib')
 joblib.dump(scaler, 'scaler.joblib')
 
-print("\nModel and scaler have been saved to disk.") 
+print("\nModel and scaler have been saved to disk.")
+
+# Save model in XGBoost format for better compatibility
+model.save_model('crop_recommendation_model.json')
+print("Model also saved in XGBoost format (crop_recommendation_model.json)") 

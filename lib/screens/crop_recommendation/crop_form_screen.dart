@@ -45,8 +45,21 @@ class _CropFormScreenState extends State<CropFormScreen> {
 
   void _submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
-      // TODO: Process the form data and navigate to result screen
-      Navigator.pushNamed(context, '/result');
+      final formData = {
+        'N': _nitrogenController.text,
+        'P': _phosphorusController.text,
+        'K': _potassiumController.text,
+        'temperature': _temperatureController.text,
+        'humidity': _humidityController.text,
+        'ph': _phController.text,
+        'rainfall': _rainfallController.text,
+      };
+
+      Navigator.pushNamed(
+        context,
+        '/result',
+        arguments: formData,
+      );
     }
   }
 
