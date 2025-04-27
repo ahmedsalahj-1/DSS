@@ -25,16 +25,16 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
-          return MaterialApp(
+    return MaterialApp(
             title: 'Crop Recommendation App',
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(
+      theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(
                 seedColor: const Color(0xFF4CAF50),
                 brightness: Brightness.light,
               ),
               textTheme: GoogleFonts.poppinsTextTheme(),
-              useMaterial3: true,
+        useMaterial3: true,
             ),
             darkTheme: ThemeData(
               colorScheme: ColorScheme.fromSeed(
